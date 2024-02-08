@@ -12,6 +12,9 @@ h1 {
   font-weight: bold;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
 
 /* :root {
   --foreground-rgb: 0, 0, 0;

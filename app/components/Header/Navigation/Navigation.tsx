@@ -21,7 +21,12 @@ export const Navigation = (props: NavigationProps) => {
             <div className='flex text-center text-slate-300 leading-5 p-4 '>
                 <Link href={'/'} onClick={() => setActive('')}>
                     <h1 className='hover:text-slate-100 hover:shadow-none border-4 border-double p-2 rounded rounded-b-xl shadow-xl'>
-                        {props.navlinks[0].title.toUpperCase()}<br />{props.navlinks[0].subTitle}
+                        {props.navlinks[0].title.toUpperCase()}<br />{
+                            pathname === '/shop' ? 'market'
+                                : pathname === '/decor' ? 'decor'
+                                    : pathname === '/events' ? 'events'
+                                        : pathname === '/education' ? 'shool' : 'studio'
+                        }
                     </h1>
                 </Link>
             </div>
