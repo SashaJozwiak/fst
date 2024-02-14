@@ -4,25 +4,34 @@ import Image from 'next/image';
 
 import s from './cat.module.css'
 
+import { getAllPg } from '@/app/services/shop/getAllFromPg'
+
 
 export default async function Catalog() {
     const items = await getAllItems();
 
-    console.log(items)
+    const items2 = await getAllPg();
+
+
+    //console.log(items2)
 
     return (
         <div className={s.cat} >
             {
-                items.map((item: any) => {
+                items2.map((item: any) => {
                     return (
                         <div key={item.id} className={s.item}>
-                            <Image src={item.image}
+                            {/* <Image src={item.image}
                                 className='h-48 mx-auto my-0'
                                 width={180} height={180}
                                 //style={{ borderRadius: "20px", margin: "10px auto" }}
                                 alt={`${item.tlte} image`}
-                            />
+                            /> */}
                             {item.title}
+                            <p>{Math.ceil(item.price)}</p>
+                            <p>{Math.ceil(item.price_2)}</p>
+                            <p>{Math.ceil(item.price_3)}</p>
+                            <div>{item.bonuses}</div>
                         </div>
                     )
                 })

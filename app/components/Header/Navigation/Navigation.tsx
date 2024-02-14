@@ -11,25 +11,32 @@ interface NavigationProps {
     navlinks: INavElement[];
 }
 
+
+
 export const Navigation = (props: NavigationProps) => {
 
     const pathname = usePathname();
     const [active, setActive] = useState(pathname);
 
+    console.log(pathname)
+
     return (
         <>
+
             <div className='flex text-center text-slate-300 leading-5 p-4 '>
-                <Link href={'/'} onClick={() => setActive('')}>
-                    <h1 className='hover:text-slate-100 hover:shadow-none border-4 border-double p-2 rounded rounded-b-xl shadow-xl'>
-                        {props.navlinks[0].title.toUpperCase()}<br />{
+                <Link href={'/'} onClick={() => setActive('')}> {/* //p-2 */}
+                    <h1 className='hover:text-slate-100 hover:shadow-none border-4 p-2 border-double rounded rounded-b-xl shadow-xl'>
+                        {props.navlinks[0].title.toUpperCase()}<br />
+                        studio
+                        {/* {
                             pathname === '/shop' ? 'market'
                                 : pathname === '/decor' ? 'decor'
                                     : pathname === '/events' ? 'events'
                                         : pathname === '/education' ? 'shool' : 'studio'
-                        }
+                        } */}
                     </h1>
                 </Link>
-            </div>
+            </div >
 
             <div className="flex justify-center text-center gap-2 text-slate-200 leading-5 p-4 pb-0">
                 {props.navlinks.map((link, id) => {
@@ -49,6 +56,7 @@ export const Navigation = (props: NavigationProps) => {
                     )
                 })}
             </div >
+
         </>
     )
 }
