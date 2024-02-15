@@ -5,13 +5,9 @@ import { useState } from 'react';
 import { INavElement } from '../Header';
 import s from './navigation.module.css'
 
-
-
 interface NavigationProps {
     navlinks: INavElement[];
 }
-
-
 
 export const Navigation = (props: NavigationProps) => {
 
@@ -25,15 +21,9 @@ export const Navigation = (props: NavigationProps) => {
 
             <div className='flex text-center text-slate-300 leading-5 p-4 '>
                 <Link href={'/'} onClick={() => setActive('')}> {/* //p-2 */}
-                    <h1 className='hover:text-slate-100 hover:shadow-none border-4 p-2 border-double rounded rounded-b-xl shadow-xl'>
+                    <h1 className='hover:text-slate-100 hover:shadow-none border-4 p-2 border-double rounded rounded-b-xl shadow-xl '>
                         {props.navlinks[0].title.toUpperCase()}<br />
                         studio
-                        {/* {
-                            pathname === '/shop' ? 'market'
-                                : pathname === '/decor' ? 'decor'
-                                    : pathname === '/events' ? 'events'
-                                        : pathname === '/education' ? 'shool' : 'studio'
-                        } */}
                     </h1>
                 </Link>
             </div >

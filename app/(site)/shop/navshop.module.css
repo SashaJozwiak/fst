@@ -40,7 +40,6 @@
     top: 12px;
 }
 
-
 .btn:hover .menu {
     @apply border-slate-800;
     transform: rotate(225deg);

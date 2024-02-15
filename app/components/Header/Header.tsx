@@ -43,10 +43,7 @@ const navLinks: INavElement[] = [
 ]
 
 export const Header = () => {
-
-
-
-    return ( //max-w-screen
+    return (
         <header className="sticky top-0 opacity-95 z-10 max-w-[1440px] min-w-full bg-slate-500 text-slate-800 font-medium text-xl">
             <div className="flex justify-between max-w-[1440px] m-auto">
                 <Navigation navlinks={navLinks} />
@@ -55,6 +52,3 @@ export const Header = () => {
         </header>
     );
 }
-
-
-

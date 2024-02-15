@@ -10,7 +10,7 @@ import { getAllPg } from '@/app/services/shop/getAllFromPg'
 export default async function Catalog() {
     const items = await getAllItems();
 
-    const items2 = await getAllPg();
+    const items2: any = await getAllPg();
 
 
     //console.log(items2)
