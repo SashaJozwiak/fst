@@ -14,16 +14,10 @@ export default async function page({
         query?: string;
         page?: string;
     }
-}) {
-
+    }) {
     const columns = ['id', 'title', 'amount', 'price', 'price_2', 'price_3', 'bonuses']
     const columnsRu = ['Арт.', 'Название', 'Кол-во', 'Цена', 'Цена 2', 'Цена 3', 'Бонусы']
     const data: any = await getTable(columns, searchParams?.sortName, searchParams?.sortDirection);
-    //console.log(data[0]);
-
-    //const handleSort = (name, direction) => {
-    //}
-
 
     console.log(searchParams)
 
@@ -43,16 +37,6 @@ export default async function page({
                                     <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
                                 </div>
                             </th>
-                            {/* {
-                                columnsRu.map((item: string) => {
-                                    return (
-                                        <th key={item} scope="col" className="px-4 py-2 text-center">
-                                            {item}
-                                        </th>
-                                    )
-                                }
-                                )
-                            } */}
                             <Titles columns={columns} />
                         </tr>
                     </thead>

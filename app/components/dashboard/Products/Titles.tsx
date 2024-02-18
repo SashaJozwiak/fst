@@ -19,8 +19,6 @@ export const Titles = ({ columns }: any) => {
         } else {
             params.set('sortDirection', 'DESC');
         }
-
-
         replace(`${pathname}?${params.toString()}`);
     }
 
