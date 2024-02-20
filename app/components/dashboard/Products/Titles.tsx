@@ -22,15 +22,23 @@ export const Titles = ({ columns }: any) => {
         replace(`${pathname}?${params.toString()}`);
     }
 
+    const Button = ({ keyBt }: { keyBt: string }) => {
+        return (
+            <svg key={keyBt} className="inline w-3 h-3 ms-2 mb-[3px] cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+            </svg>
+        )
+    }
+
     return (
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" className="p-4">
+                {/* <th scope="col" className="p-4">
                     <div className="flex items-center">
                         <input id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
                     </div>
-                </th>
+                </th> */}
                 {
                     columns.map((item: string) => {
                         return (
@@ -39,8 +47,9 @@ export const Titles = ({ columns }: any) => {
                                 scope="col"
                                 className="px-4 py-2 text-center">
                                 <h2 onClick={() => handleSort(item)}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer inline"
                                 >{item}</h2>
+                                {item === 'category' ? <Button keyBt={`123${item}`} /> : null}
                             </th>
                         )
                     }

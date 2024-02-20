@@ -68,7 +68,16 @@ INSERT INTO descriptions VALUES
 (4, 'Свежие Гвоздики из Нидерландов (Голландия) высотой 20 сантиметров');
 
 
-INSERT INTO products VALUES
-(2, 'Роза 30см Крым', '2_rose30krimea', 32, 115, 97, 80, 0, 8, 1, 2),
-(3, 'Роза 20см РНД', '3_rose30rnd', 21, 125, 112, 98, 0, 11, 1, 3),
-(4, 'Гвоздика 30см Нидерланды', '3_gvozdica30niderlandi', 21, 125, 112, 98, 0, 11, 2, 4);
+CREATE SEQUENCE article_seq START 1000;
+
+ALTER TABLE products
+ADD COLUMN art INTEGER DEFAULT nextval('article_seq');
+
+INSERT INTO products  (title, img_link, amount, price, price_2, price_3, discount, bonuses, category_id, description_id) 
+VALUES
+('Роза 40см Эквадор', '1_rose30krimea', 12, 178, 158, 136, 0, 12, 1, 2),
+('Роза 30см Крым', '2_rose30krimea', 32, 115, 97, 80, 0, 8, 1, 2),
+('Роза 20см РНД', '3_rose30rnd', 21, 125, 112, 98, 0, 11, 1, 3),
+('Гвоздика 30см Нидерланды', '3_gvozdica30niderlandi', 21, 120, 110, 92, 0, 11, 2, 4);
+('Букет "Зимняя сакура"', 'sokuraцштеук_1011', 2, 1896, 1850, 1790, 0, 100, 2, 2);
+SELECT * FROM products
