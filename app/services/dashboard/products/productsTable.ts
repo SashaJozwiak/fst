@@ -1,3 +1,4 @@
+'use server'
 import pool from '@/app/db/pgSettings'
 
 export async function getTable

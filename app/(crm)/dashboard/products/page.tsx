@@ -103,9 +103,13 @@ export default async function page({
                                     <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                         {item.art}
                                     </th>
+
                                     <td className="px-0 py-1 text-sm font-semibold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-                                        <Link href={`/dashboard/products/${item.art}/edit`}>{item.title}</Link>
+                                        <Link href={`/dashboard/products/${item.art}/edit`}>
+                                            {item.title}
+                                        </Link>
                                     </td>
+
                                     <td className="px-4 py-2 text-center">
                                         {item.category}
 
