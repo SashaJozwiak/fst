@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import React from 'react'
-import Image from 'next/image'
 
-export const Img = ({ imgLink, uploadFn }: any) => {
-
+export const ImgUpload = ({ imgLink, uploadFn }: any) => {
     const [img, setImg] = React.useState<any>('');
 
     const handleImageChange = (e: any) => {
@@ -22,7 +20,7 @@ export const Img = ({ imgLink, uploadFn }: any) => {
 
     return (<>
 
-        <form className='flex flex-row gap-4' action={uploadFn}>
+        <form className='flex flex-row gap-4 mb-4' action={uploadFn}>
 
             <img src={`/products_img/${imgLink}.webp`} alt="product photo"
                 className='mt-4 rounded-lg w-72 h-52' />
@@ -49,6 +47,7 @@ export const Img = ({ imgLink, uploadFn }: any) => {
             </div>
 
         </form>
+        <hr />
     </>
     )
 }
