@@ -8,19 +8,19 @@ import { getAllPg } from '@/app/services/shop/getAllFromPg'
 
 
 export default async function Catalog() {
-    const items = await getAllItems();
+    //const items = await getAllItems();
 
-    const items2: any = await getAllPg();
+    const items: any = await getAllPg();
 
 
-    //console.log(items2)
+    //console.log(items)
 
     return (
         <div className={s.cat} >
             {
-                items2.map((item: any) => {
+                items.map((item: any) => {
                     return (
-                        <div key={item.id} className={s.item}>
+                        <div key={item.art} className={s.item}>
                             {/* <Image src={item.image}
                                 className='h-48 mx-auto my-0'
                                 width={180} height={180}

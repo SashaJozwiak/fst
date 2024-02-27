@@ -29,7 +29,7 @@ export default function NavLinks() {
                         className={clsx(
                             'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-slate-50 p-3 text-sm font-medium hover:bg-slate-500 hover:text-slate-100 text-slate-700 md:flex-none md:justify-start md:p-2 md:px-3',
                             {
-                                'bg-slate-500 text-white': pathname === link.href
+                                'bg-slate-500 text-white': pathname.startsWith(link.href) && link.href !== '/dashboard'
                             },
                         )}
                     >

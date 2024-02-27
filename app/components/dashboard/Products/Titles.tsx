@@ -2,7 +2,7 @@
 import React from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export const Titles = ({ columns }: any) => {
+export const Titles = ({ columns }: { columns: string[] }) => {
 
     const [sortDirection, setSortDirection] = React.useState(true);
 
@@ -22,13 +22,15 @@ export const Titles = ({ columns }: any) => {
         replace(`${pathname}?${params.toString()}`);
     }
 
-    const Button = ({ keyBt }: { keyBt: string }) => {
-        return (
-            <svg key={keyBt} className="inline w-3 h-3 ms-2 mb-[3px] cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+    const Button = ({ keyDiv, keySVG }: { keyDiv: string, keySVG: string }) => {
+        return (<div key={`3${keyDiv}`}>
+            <svg key={`2${keySVG}`} className="inline w-3 h-3 ms-2 mb-[3px] cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
             </svg>
+        </div >
         )
     }
+
 
     return (
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -46,10 +48,10 @@ export const Titles = ({ columns }: any) => {
                                 key={item}
                                 scope="col"
                                 className="px-4 py-2 text-center">
-                                <h2 onClick={() => handleSort(item)}
+                                <h2 key={`1${item}`} onClick={() => handleSort(item)}
                                     className="cursor-pointer inline"
                                 >{item}</h2>
-                                {item === 'category' ? <Button keyBt={`123${item}`} /> : null}
+                                {item === 'category' ? <Button keyDiv={item} keySVG={item} /> : null}
                             </th>
                         )
                     }

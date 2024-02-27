@@ -27,12 +27,7 @@ export default async function page({
         <>
             <div className='p-2 flex justify-end gap-2'>
 
-                {/* <button id="addProduct" data-dropdown-toggle="dropdownBgHover" className="text-white bg-slate-500 hover:bg-slate-800 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
-                    Поставщики
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ms-2 ">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                </button> */}
+
                 <div className='flex flex-col justify-center'>
                     <Link href={'/dashboard/products/arrivals'} id="addProduct" data-dropdown-toggle="dropdownBgHover" className="text-slate-900 hover:text-white bg-lime-600 hover:bg-lime-700 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
                         Поставка
@@ -104,44 +99,39 @@ export default async function page({
                     <tbody>
                         {data?.map((item: any) => {
                             return (
-                                <tr key={item.art} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    {/* <td className="w-4 py-2 px-4">
-                                        <div className="flex items-center">
-                                            <input id={`checkbox-table-search-${item.id}`} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 " />
-                                            <label htmlFor={`checkbox-table-search-${item.id}`} className="sr-only">checkbox</label>
-                                        </div>
-                                    </td> */}
+                                <tr key={`1${item.art}`} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-                                    <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+
+                                    <th key={item.art} scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                         {item.art}
                                     </th>
 
-                                    <td className="px-0 py-1 text-sm font-semibold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
+                                    <td key={item.title} className="px-0 py-1 text-sm font-semibold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
                                         <Link href={`/dashboard/products/${item.art}/edit`}>
                                             {item.title}
                                         </Link>
                                     </td>
 
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.category} className="px-4 py-2 text-center">
                                         {item.category}
 
                                     </td>
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.amount} className="px-4 py-2 text-center">
                                         {item.amount}
                                     </td>
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.cost_price} className="px-4 py-2 text-center">
                                         {item.cost_price}
                                     </td>
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.price} className="px-4 py-2 text-center">
                                         {item.price}
                                     </td>
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.price_2} className="px-4 py-2 text-center">
                                         {item.price_2}
                                     </td>
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.price_3} className="px-4 py-2 text-center">
                                         {item.price_3}
                                     </td>
-                                    <td className="px-4 py-2 text-center">
+                                    <td key={item.bonuses} className="px-4 py-2 text-center">
                                         {item.bonuses}
                                     </td>
                                 </tr>
@@ -178,6 +168,7 @@ export default async function page({
                     </ul>
                 </nav>
             </div >
+
         </>
     )
 }
