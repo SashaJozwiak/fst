@@ -7,8 +7,6 @@ export default async function page() {
     const columns = ['status', 'art', 'date', 'sum', 'pay', 'supplier', 'employer'];
     const data: any = await getArrivals(columns);
 
-    console.log(data)
-
     return (
         <>
             <h1 className='mb-5 text-slate-400 cursor-default text-lg'>

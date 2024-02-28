@@ -98,40 +98,40 @@ export default async function page({
                     <Titles columns={columns} />
                     <tbody>
                         {data?.map((item: any) => {
+
                             return (
                                 <tr key={`1${item.art}`} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-
-                                    <th key={item.art} scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+                                    <th /* key={item.art} */ scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
                                         {item.art}
                                     </th>
 
-                                    <td key={item.title} className="px-0 py-1 text-sm font-semibold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
+                                    <td /* key={item.title} */ className="px-0 py-1 text-sm font-semibold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
                                         <Link href={`/dashboard/products/${item.art}/edit`}>
                                             {item.title}
                                         </Link>
                                     </td>
 
-                                    <td key={item.category} className="px-4 py-2 text-center">
+                                    <td /* key={item.category} */ className="px-4 py-2 text-center">
                                         {item.category}
 
                                     </td>
-                                    <td key={item.amount} className="px-4 py-2 text-center">
+                                    <td /* key={item.amount} */ className="px-4 py-2 text-center">
                                         {item.amount}
                                     </td>
-                                    <td key={item.cost_price} className="px-4 py-2 text-center">
+                                    <td /* key={item.cost_price} */ className="px-4 py-2 text-center">
                                         {item.cost_price}
                                     </td>
-                                    <td key={item.price} className="px-4 py-2 text-center">
+                                    <td /* key={item.price} */ className="px-4 py-2 text-center">
                                         {item.price}
                                     </td>
-                                    <td key={item.price_2} className="px-4 py-2 text-center">
+                                    <td /* key={item.price_2} */ className="px-4 py-2 text-center">
                                         {item.price_2}
                                     </td>
-                                    <td key={item.price_3} className="px-4 py-2 text-center">
+                                    <td /* key={item.price_3} */ className="px-4 py-2 text-center">
                                         {item.price_3}
                                     </td>
-                                    <td key={item.bonuses} className="px-4 py-2 text-center">
+                                    <td /* key={item.bonuses} */ className="px-4 py-2 text-center">
                                         {item.bonuses}
                                     </td>
                                 </tr>
