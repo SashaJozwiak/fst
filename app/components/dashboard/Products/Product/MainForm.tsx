@@ -3,7 +3,7 @@ import React from 'react'
 
 export const MainForm = ({ art, data, setData }: any) => {
     const [isEdit, setIsEdit] = React.useState<boolean>(false);
-    const [checked, setChecked] = React.useState<boolean>(false);
+    const [checked, setChecked] = React.useState<boolean>(data.vitrine);
 
     return (
         <>
@@ -195,7 +195,11 @@ export const MainForm = ({ art, data, setData }: any) => {
                         />
                     </label>
                     <legend className='flex justify-end items-center py-2 mt-4'>
-                        <input onChange={() => setChecked(!checked)} checked={checked}
+                        <input onChange={() => {
+                            setIsEdit(true)
+                            setChecked(!checked)
+                        }
+                        } checked={checked}
                             id='vitrine' name='vitrine' className='appearance-none  h-6 w-6 checked:bg-slate-400 border-2 border-dotted rounded-lg cursor-pointer' type='checkbox'></input>
                         <label htmlFor="vitrine" className='ml-2 cursor-pointer'>На витрине</label>
                     </legend>
@@ -204,15 +208,12 @@ export const MainForm = ({ art, data, setData }: any) => {
                 <div className='flex justify-between'>
                     <input type='submit'
                         value='Сохранить'
-                        className={`hover:cursor-pointer disabled:opacity-55 disabled:cursor-default mt-2 mb-2 px-4 py-2 bg-slate-200 rounded-full 
+                        className={`h-10 hover:cursor-pointer disabled:opacity-55 disabled:cursor-default mt-2 mb-2 px-4 py-2 bg-slate-200 rounded-full 
                         text-sm font-semibold text-slate-700 enabled:hover:text-slate-100
                         enabled:hover:bg-slate-500`}
                         disabled={!isEdit}
                     />
 
-                    <button className='hover:cursor-pointer disabled:opacity-55 disabled:cursor-default mt-2 mb-2 px-4 py-2 bg-red-100 rounded-full 
-                        text-sm font-semibold text-slate-700 enabled:hover:text-slate-100
-                        enabled:hover:bg-red-300'>Удалить товар полностью</button>
                 </div>
                 <hr />
             </form >

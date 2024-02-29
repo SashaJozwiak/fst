@@ -1,10 +1,16 @@
 'use server'
 import pool from '@/app/db/pgSettings'
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/router';
+
 
 export async function getProduct(productId: string) {
+
     const client = await pool.connect();
 
     try {
+
         const result = await client.query(
             `SELECT * FROM products
             JOIN categories ON products.category_id = categories.id
@@ -25,8 +31,9 @@ export async function getProduct(productId: string) {
 
 
 export async function changeProduct(productId: string, newData: any) {
-    const { title, category, izm, price, price_2, price_3, bonuses } = newData;
+    const { title, category, izm, price, price_2, price_3, bonuses, vitrine } = newData;
     const client = await pool.connect();
+    console.log(vitrine)
 
     try {
         const result = await client.query(
@@ -36,7 +43,8 @@ export async function changeProduct(productId: string, newData: any) {
             price = ${price},
             price_2 = ${price_2},
             price_3 = ${price_3},
-            bonuses = ${bonuses}
+            bonuses = ${bonuses},
+            vitrine = ${vitrine}
             WHERE art = ${productId}
             `
         )
@@ -97,6 +105,31 @@ export async function changeDescription(productId: string, value: string) {
 
     } catch (err) {
         console.log(err);
+    } finally {
+        client.release();
+    }
+}
+
+export async function deleteProduct(art: string) {
+    const pArt = Number(art);
+    console.log(art, pArt)
+
+
+    const client = await pool.connect();
+
+    try {
+        const result = await client.query(
+            `
+            DELETE FROM products
+            WHERE art = ${pArt};
+            `
+        )
+        revalidatePath('/dashboard/products/')
+        return result.command;
+
+    } catch (err) {
+        console.log(err);
+        return 'err';
     } finally {
         client.release();
     }

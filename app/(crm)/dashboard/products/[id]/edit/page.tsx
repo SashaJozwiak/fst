@@ -39,6 +39,7 @@ export default async function page({ params }: { params: { id: string } }) {
     async function setData(FormData: FormData) {
         'use server'
 
+        console.log(FormData)
         const newData = {
             title: FormData.get('title'),
             category: FormData.get('category'),
@@ -47,6 +48,7 @@ export default async function page({ params }: { params: { id: string } }) {
             price_2: FormData.get('price_2'),
             price_3: FormData.get('price_3'),
             bonuses: FormData.get('bonuses'),
+            vitrine: FormData.get('vitrine') === 'on' ? true : false
         }
 
         await changeProduct(art, newData);
@@ -64,6 +66,7 @@ export default async function page({ params }: { params: { id: string } }) {
 
     return (
         <>
+            <header className='flex flex-row justify-between'>
             <h1 className='mb-5 text-slate-400 cursor-default text-lg'>
                 <Link className='text-slate-500 cursor-pointer hover:text-slate-400' href={'/dashboard/products'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="inline w-6 h-6 mb-2 mx-1">
@@ -72,6 +75,14 @@ export default async function page({ params }: { params: { id: string } }) {
                     Товары
                 </Link> / {data.title}
             </h1>
+
+                <Link href={`/dashboard/products/${art}/delete`}
+                    className='h-10 w-48 hover:cursor-pointer disabled:opacity-55 disabled:cursor-default mt-2 mb-2 px-4 py-2 bg-red-100 rounded-full 
+                        text-sm font-semibold text-slate-600 hover:text-slate-100 hover:bg-red-300
+                        text-center'>
+                    Удалить товар
+                </Link>
+            </header>
 
             <MainForm art={art} data={data} setData={setData} />
             <ImgUpload imgLink={data.img_link} uploadFn={upload} />

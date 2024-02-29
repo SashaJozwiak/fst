@@ -23,8 +23,9 @@ export async function getTable
             }
             ${orderBy !== '' ? `ORDER BY ${orderBy} ${sortOrder}` : ""}`
         )
-        const data = result.rows;
 
+        const data = result.rows;
+        console.log(data)
         return data;
     } catch (err) {
         console.error('error fetching products:', err);

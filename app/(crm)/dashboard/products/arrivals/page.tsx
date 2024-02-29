@@ -18,6 +18,19 @@ export default async function page() {
                 </Link> / Поставки
             </h1>
 
+            <div className='flex justify-between'>
+                <button className='p-4 bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </button>
+
+                <button className='p-2  bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
+                    Поставщики
+                </button>
+
+            </div>
+
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

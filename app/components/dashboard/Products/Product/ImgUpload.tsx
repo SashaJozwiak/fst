@@ -20,7 +20,7 @@ export const ImgUpload = ({ imgLink, uploadFn }: any) => {
 
     return (<>
 
-        <form className='flex flex-row gap-4 mb-4' action={uploadFn}>
+        <form className='flex flex-row gap-4 mb-4 flex-wrap' action={uploadFn}>
 
             <img src={`/products_img/${imgLink}.webp`} alt="product photo"
                 className='mt-4 rounded-lg w-72 h-52' />

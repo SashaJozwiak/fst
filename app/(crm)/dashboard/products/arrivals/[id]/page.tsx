@@ -20,7 +20,7 @@ export default async function page(props: Props
     const status = props.searchParams?.status;
     const query = props.searchParams?.query;
 
-    const columns = ['Арт', 'Товар', 'Остаток', 'Кол-во', 'Цена/сум', 'Цена ед.', 'Цена розн.', 'Цена 2', 'Цена 3', 'Бонусы', 'x'];
+    const columns = ['Арт', 'Товар', 'Остаток', 'Кол-во', 'Цена/сум', 'Цена ед.', 'Цена розн.', 'Цена 2', 'Цена 3', 'Бонусы', `Уд.`];
     const data: any = await getArrival(art)
     const dataSearch: any = await getSearchList(query)
 

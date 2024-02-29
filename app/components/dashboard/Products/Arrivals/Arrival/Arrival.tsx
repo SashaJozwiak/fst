@@ -44,8 +44,9 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
     const handleAdd = useDebouncedCallback((value: boolean) => {
         if (value === true && dataSearch.length === 0) {
             setIsAdd(true)
-        }
-        else if (value === false) {
+        } else if (value === true && dataSearch.length !== 0) {
+            setIsAdd(false)
+        } else if (value === false && dataSearch.length !== 0) {
             setIsAdd(value)
         }
     }, 1000)
@@ -131,7 +132,11 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                                         onClick={async () => {
                                             await deleteProductFromList(item.product_art, art)
                                         }}
-                                        className='py-1 px-2 border text-red-300 hover:bg-slate-200'>x</button>
+                                        className=' border text-red-300 hover:bg-slate-200 rounded-xl'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                                        </svg>
+                                    </button>
                                 </td>
                             </tr>
                         )
