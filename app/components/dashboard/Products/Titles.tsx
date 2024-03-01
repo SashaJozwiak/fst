@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
+
 
 export const Titles = ({ columns }: { columns: string[] }) => {
 
