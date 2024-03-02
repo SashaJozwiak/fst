@@ -2,13 +2,9 @@
 import React from 'react';
 import { deleteProduct } from "@/app/services/dashboard/products/product/getProduct";
 import Link from "next/link";
-import { redirect } from 'next/navigation';
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
 
 export default function page({ params }: { params: { id: string } }) {
-
     const art = params.id;
     const [err, setErr] = React.useState<string>('');
     const { push } = useRouter();
@@ -17,7 +13,6 @@ export default function page({ params }: { params: { id: string } }) {
         if (err === 'DELETE') {
             push('/dashboard/products/');
         }
-
     }, [err])
 
     return (
@@ -35,9 +30,7 @@ export default function page({ params }: { params: { id: string } }) {
                 >нет</Link>
             </div>
 
-
             {err && err !== 'DELETE' && <p className='pt-8 text-red-300 text-center mt-auto mb-auto'>Нельзя. Товар присуствтует в документах поставок</p>}
         </div>
     )
-
 }

@@ -1,12 +1,9 @@
 'use server'
 import pool from '@/app/db/pgSettings'
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { useRouter } from 'next/router';
 
 
 export async function getProduct(productId: string) {
-
     const client = await pool.connect();
 
     try {
@@ -28,7 +25,6 @@ export async function getProduct(productId: string) {
         client.release();
     }
 }
-
 
 export async function changeProduct(productId: string, newData: any) {
     const { title, category, izm, price, price_2, price_3, bonuses, vitrine } = newData;
@@ -60,7 +56,6 @@ export async function changeProduct(productId: string, newData: any) {
 }
 
 export async function imgName(productId: string) {
-
     const client = await pool.connect();
 
     try {
@@ -82,9 +77,7 @@ export async function imgName(productId: string) {
     }
 }
 
-
 export async function changeDescription(productId: string, value: string) {
-
     const client = await pool.connect();
 
     try {
@@ -113,7 +106,6 @@ export async function changeDescription(productId: string, value: string) {
 export async function deleteProduct(art: string) {
     const pArt = Number(art);
     console.log(art, pArt)
-
 
     const client = await pool.connect();
 

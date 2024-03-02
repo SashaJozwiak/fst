@@ -1,6 +1,7 @@
 'use server'
 import pool from '@/app/db/pgSettings'
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export async function getArrivals(columns: string[]) {
 
@@ -40,7 +41,13 @@ export async function getArrival(id: string) {
         const result = await client.query(
             `
         SELECT 
-        product_art, arrivals_art, arrivals_products.cost_price, cost_price_sum, arrivals_products.amount, products.amount as curr_amount, title
+        product_art,
+        arrivals_art,
+        arrivals_products.cost_price,
+        cost_price_sum,
+        arrivals_products.amount,
+        products.amount as curr_amount,
+        title, price, price_2, price_3, bonuses
         FROM arrivals_products
         JOIN products ON arrivals_products.product_art = products.art
         WHERE arrivals_art = ${id}
@@ -167,6 +174,7 @@ export async function addNewProduct(newProduct: string, aArt: string) {
         await client.query('COMMIT');
 
         revalidatePath(`/dashboard/products/arrivals/${aArt}`);
+        //redirect(`/dashboard/products/arrivals/${aArt}`);
 
     } catch (err) {
         console.log(err);

@@ -14,7 +14,6 @@ import { changeProduct, getProduct, imgName, changeDescription } from '@/app/ser
 
 export default async function page({ params }: { params: { id: string } }) {
     const art = params.id;
-    console.log(art)
     const data: any = await getProduct(art);
 
     async function upload(FormData: FormData) {
@@ -78,8 +77,8 @@ export default async function page({ params }: { params: { id: string } }) {
 
                 <Link href={`/dashboard/products/${art}/delete`}
                     className='h-10 w-48 hover:cursor-pointer disabled:opacity-55 disabled:cursor-default mt-2 mb-2 px-4 py-2 bg-red-100 rounded-full 
-                        text-sm font-semibold text-slate-600 hover:text-slate-100 hover:bg-red-300
-                        text-center'>
+                    text-sm font-semibold text-slate-600 hover:text-slate-100 hover:bg-red-300
+                    text-center'>
                     Удалить товар
                 </Link>
             </header>

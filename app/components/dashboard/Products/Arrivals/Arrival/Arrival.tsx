@@ -6,20 +6,18 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { addNewProduct, addProductToArrival, deleteProductFromList } from '@/app/services/dashboard/products/arrivals/getArrivals';
+import { ArrivTable } from './ArrivTable';
 
 
 export const Arrival = ({ titles, data, dataSearch, art }: any) => {
+    const [isAdd, setIsAdd] = React.useState(false); //можно добавить новый
+    const [isHave, setIsHave] = React.useState(false); //товар уже есть в списке
 
-    const [isAdd, setIsAdd] = React.useState(false);
-    const [isHave, setIsHave] = React.useState(false);
-
-    const [newProduct, setNewProduct] = React.useState('');
+    const [newProduct, setNewProduct] = React.useState('');//значение в поиске
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
-
-    console.log(newProduct)
 
     const handleSearch = useDebouncedCallback((term: string) => {
         console.log(`Searching...${term}`);
@@ -40,11 +38,13 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
 
     }, 800);
 
-
     const handleAdd = useDebouncedCallback((value: boolean) => {
         if (value === true && dataSearch.length === 0) {
             setIsAdd(true)
-        } else if (value === true && dataSearch.length !== 0) {
+        } else if (value === false && dataSearch.length === 0) {
+            setIsAdd(false)
+        }
+        else if (value === true && dataSearch.length !== 0) {
             setIsAdd(false)
         } else if (value === false && dataSearch.length !== 0) {
             setIsAdd(value)
@@ -69,85 +69,13 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                     </tr>
                 </thead>
 
-                <tbody>
-                    {data.map((item: any) => {
-                        return (
-                            <tr key={item.product_art} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th className="px-4 py-2 text-center text-black">
-                                    {item.product_art}
-                                </th>
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-                                    <Link href={`/dashboard/products/${item.product_art}/edit`}>
-                                        {item.title}
-                                    </Link>
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-                                    {item.curr_amount}
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-                                    <input className='w-20 border text-center' type='number' step="1"
-                                        defaultValue={item.amount || 0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-
-                                    <input className='w-20 border text-center' type='number' step="0.10"
-                                        defaultValue={item.cost_price_sum || 0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-
-                                    <input className='w-20 border text-center' type='number' step="0.10"
-                                        defaultValue={item.cost_price || 0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-
-                                    <input className='w-20 border text-center' type='number' step="0.10"
-                                        defaultValue={0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-
-                                    <input className='w-20 border text-center' type='number' step="0.10"
-                                        defaultValue={0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-
-                                    <input className='w-20 border text-center' type='number' step="0.10"
-                                        defaultValue={0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-
-                                    <input className='w-20 border text-center' type='number' step="0.10"
-                                        defaultValue={0} />
-                                </td>
-
-                                <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
-                                    <button
-                                        onClick={async () => {
-                                            await deleteProductFromList(item.product_art, art)
-                                        }}
-                                        className=' border text-red-300 hover:bg-slate-200 rounded-xl'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                    })}
-
-                </tbody>
+                <ArrivTable art={art} data={data} deleteProductFromList={deleteProductFromList} />
 
             </table>
         </div>
 
-        <div className='flex flex-row gap-2 item-center mt-2'>
+        <div className='flex flex-row gap-2 item-center mt-4 flex-wrap'>
+
             <div className='flex flex-row items-center gap-2 '>
                 <form className="max-w-60 mx-left">
                     <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -179,6 +107,13 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                 </button>
             }
 
+            <button className='font-semibold 
+                m-auto border rounded-lg px-2 py-1 bg-slate-400 hover:bg-slate-600 hover:text-slate-200 text-slate-700
+                '>Сохранить</button>
+
+            <div className='ml-auto item-center text-center text-slate-500 py-2'>
+                <h1 className='text-center item-center'>Cумма: 00000</h1>
+            </div>
         </div>
 
         <ul className='rounded-xl pt-1'>
@@ -203,8 +138,6 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
             })
             }
         </ul>
-
     </>
-
     )
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link';
 import { getArrival, getSearchList } from '@/app/services/dashboard/products/arrivals/getArrivals';
 import { Arrival } from '@/app/components/dashboard/Products/Arrivals/Arrival/Arrival';
-import { addProductToArrival } from '@/app/services/dashboard/products/arrivals/getArrivals';
 
 type PostsPageSearchParams = {
     status: string;
@@ -13,17 +12,15 @@ type Props = {
     searchParams?: PostsPageSearchParams;
 };
 
-export default async function page(props: Props
-
-) {
+export default async function page(props: Props) {
     const art = props.params.id;
     const status = props.searchParams?.status;
     const query = props.searchParams?.query;
 
-    const columns = ['Арт', 'Товар', 'Остаток', 'Кол-во', 'Цена/сум', 'Цена ед.', 'Цена розн.', 'Цена 2', 'Цена 3', 'Бонусы', `Уд.`];
+    const columns = ['Арт', 'Товар', 'Остаток', 'Кол-во', 'Цена сум.', 'Цена зак.', 'Цена розн.', 'Цена 2', 'Цена 3', 'Бонусы', `Уд.`];
     const data: any = await getArrival(art)
     const dataSearch: any = await getSearchList(query)
-
+    console.log(data)
     return (
         <>
             <h1 className='mb-5 text-slate-400 cursor-default text-lg'>
