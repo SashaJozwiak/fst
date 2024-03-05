@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 
-export const ArrivTable = ({ art, data, deleteProductFromList }: any) => {
-
-    const [dataList, setDataList] = React.useState(data);
+export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setDataList, isUpdate, setIsUpdate }: any) => {
+    //const [dataList, setDataList] = React.useState(data);
 
     function changeDataList(id: any, property: string, value: number) {
         console.log(id, property, value)
@@ -98,9 +97,7 @@ export const ArrivTable = ({ art, data, deleteProductFromList }: any) => {
     }
 
     const finMarzha = (lastPrice: any, bonuses: any, costPrice: any) => {
-
         const arrB: any = [];
-        //const bon = bonuses;
 
         function sumBonuses(bon: any) {
             if (bon < 1) {
@@ -112,21 +109,13 @@ export const ArrivTable = ({ art, data, deleteProductFromList }: any) => {
 
         sumBonuses(bonuses)
         const res = arrB.reduce((partialSum: any, a: any) => partialSum + a, 0)
-
         const finRes = (lastPrice - costPrice - res) / costPrice * 100
-        console.log(res)
 
         if (costPrice > 0) {
             return +finRes.toFixed(2);
         }
         return 0;
-
     }
-
-    useEffect(() => {
-        setDataList(data);
-        //console.log('use effect')
-    }, [data]);
 
     return (
         <tbody>
@@ -233,6 +222,7 @@ export const ArrivTable = ({ art, data, deleteProductFromList }: any) => {
                             <button
                                 onClick={async () => {
                                     await deleteProductFromList(item.product_art, art)
+                                    setIsUpdate(true);
                                 }}
                                 className=' border text-red-300 hover:bg-slate-200 rounded-xl'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">

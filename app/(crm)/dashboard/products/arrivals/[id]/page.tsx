@@ -19,8 +19,9 @@ export default async function page(props: Props) {
 
     const columns = ['Арт', 'Товар', 'Остаток', 'Кол-во', 'Цена сум.', 'Цена зак.', 'Цена розн.', 'Цена 2', 'Цена 3', 'Бонусы', `Уд.`];
     const data: any = await getArrival(art)
+    //const status: any = await getStatus(art);
     const dataSearch: any = await getSearchList(query)
-    console.log(data)
+    //console.log(data)
     return (
         <>
             <h1 className='mb-5 text-slate-400 cursor-default text-lg'>
@@ -29,7 +30,7 @@ export default async function page(props: Props) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                     Поставки
-                </Link> / Акт поставки № {art} ({status})
+                </Link> / Акт поставки № {art}
             </h1>
             <Arrival titles={columns} data={data} dataSearch={dataSearch} art={art} />
         </>

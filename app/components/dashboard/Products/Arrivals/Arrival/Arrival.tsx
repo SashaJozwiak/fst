@@ -1,17 +1,25 @@
 'use client'
-import React from 'react'
-import Link from 'next/link'
+import React, { useEffect } from 'react'
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { addNewProduct, addProductToArrival, deleteProductFromList } from '@/app/services/dashboard/products/arrivals/getArrivals';
 import { ArrivTable } from './ArrivTable';
-
+import { saveData, getPaid, saveStatus } from '@/app/services/dashboard/products/arrivals/getArrival';
 
 export const Arrival = ({ titles, data, dataSearch, art }: any) => {
+
     const [isAdd, setIsAdd] = React.useState(false); //можно добавить новый
     const [isHave, setIsHave] = React.useState(false); //товар уже есть в списке
+    const [isUpdate, setIsUpdate] = React.useState(false); //можно вытянуть data из db
+    const [isCredit, setIsCredit] = React.useState(false); // задолжность
+
+    const [dataList, setDataList] = React.useState(data);
+    const [status, setStatus] = React.useState('');
+
+    const [dataSum, setDataSum] = React.useState(0);
+    const [opl, setOpl] = React.useState(0);
 
     const [newProduct, setNewProduct] = React.useState('');//значение в поиске
 
@@ -20,6 +28,7 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
     const { replace } = useRouter();
 
     const handleSearch = useDebouncedCallback((term: string) => {
+        console.log(dataList);
         console.log(`Searching...${term}`);
         setNewProduct(term)
         setIsHave(false)
@@ -51,6 +60,50 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
         }
     }, 1000)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const sumToPay = () => {
+        const sum: number = dataList.reduce((sum: number, el: any) => Number(el.cost_price_sum) + sum, 0)
+        setDataSum(sum);
+    }
+
+    useEffect(() => {
+        if (isUpdate) {
+            setDataList(data);
+            setIsUpdate(false);
+        }
+        sumToPay()
+        if (opl < dataSum) {
+            setIsCredit(true);
+        } else {
+            setIsCredit(false);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, dataSum, isUpdate, sumToPay])
+
+    useEffect(() => {
+        async function pay() {
+            const paid: any = await getPaid(art)
+            setOpl(paid);
+        }
+        pay()
+
+
+
+    }, [art])
+
+    useEffect(() => {
+        const getDefaultStatus = async () => {
+            const params = new URLSearchParams(searchParams);
+            const status = params.get('status');
+            setStatus(status || '');
+        }
+
+        getDefaultStatus();
+    }, [searchParams]);
+
+    console.log(status)
+
     return (<>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -69,12 +122,19 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                     </tr>
                 </thead>
 
-                <ArrivTable art={art} data={data} deleteProductFromList={deleteProductFromList} />
+                <ArrivTable art={art}
+                    data={data}
+                    deleteProductFromList={deleteProductFromList}
+                    dataList={dataList}
+                    setDataList={setDataList}
+                    isUpdate={isUpdate}
+                    setIsUpdate={setIsUpdate}
+                />
 
             </table>
         </div>
 
-        <div className='flex flex-row gap-2 item-center mt-4 flex-wrap'>
+        <div className='flex flex-row gap-2 items-center mt-2 m-auto flex-wrap justify-between'>
 
             <div className='flex flex-row items-center gap-2 '>
                 <form className="max-w-60 mx-left">
@@ -91,13 +151,11 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                             placeholder="Найти товар..." autoComplete='off' required />
                     </div>
                 </form>
-                {isHave && <p className='text-red-300'>Такой товар уже есть в документе</p>}
-            </div>
-
-            {isAdd &&
+                {isAdd &&
                 <button
                     onClick={async () => {
                         await addNewProduct(newProduct, art)
+                            setIsUpdate(true);
                     }
                     }
                     className='py-[5px] px-4 border bg-slate-300 rounded-lg hover:text-white hover:bg-slate-400'>
@@ -106,17 +164,60 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                     </svg>
                 </button>
             }
+                {isHave && <p className='text-red-300'>Такой товар уже есть в документе</p>}
+            </div>
 
-            <button className='font-semibold 
-                m-auto border rounded-lg px-2 py-1 bg-slate-400 hover:bg-slate-600 hover:text-slate-200 text-slate-700
-                '>Сохранить</button>
+            <div className='flex items-center gap-2 m-auto'>
+                <button onClick={async () => {
+                    await saveData(art, dataList, dataSum, opl, status)
+                }}
+                    className='font-semibold 
+                m-auto border rounded-lg px-2 py-1 bg-slate-300 hover:bg-slate-500 hover:text-slate-200 text-slate-700
+                '>
+                    Сохранить
+                </button>
 
-            <div className='ml-auto item-center text-center text-slate-500 py-2'>
-                <h1 className='text-center item-center'>Cумма: 00000</h1>
+                <select onChange={async (e) => {
+                    const newStatus = e.target.value;
+                    setStatus(newStatus);
+
+                }}
+                    value={status}
+                    className='p-0 m-0 border'>
+                    <option value="Черновик">Черновик</option>
+                    <option value="Открыто">Открыто</option>
+                    {!isCredit && <option value="Проведено">Проведено</option>}
+
+                </select>
+            </div>
+
+            <div className='flex flex-col m-auto text-center text-slate-500 py-2'>
+
+                <h1 className='text-center items-center'>Cумма:
+                    &nbsp;{dataSum}
+                    &nbsp;руб.
+                </h1>
+                <h1>Опл:&nbsp;
+                    <input onChange={(e) => {
+                        setOpl(Number(e.target.value))
+
+                        if (opl < dataSum) {
+                            setIsCredit(true);
+                        } else {
+                            setIsCredit(false);
+                        }
+                        console.log(isCredit)
+
+                    }}
+                        type='number' step="0.10" value={opl}
+                        className='w-20 border'>
+                    </input>&nbsp;
+                    руб.</h1>
+
             </div>
         </div>
 
-        <ul className='rounded-xl pt-1'>
+        <ul className='rounded-xl mt-[-10px]'>
             {dataSearch?.length > 0 && dataSearch.map((item: any) => {
                 return (
                     <li onClick={async () => {
@@ -125,9 +226,11 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
 
                         if (!found) {
                             await addProductToArrival(pArt, art)
+                            setIsUpdate(true);
                         } else {
                             setIsHave(true)
                         }
+
                     }}
                         key={item.art}
                         className='bg-slate-100 hover:bg-slate-300 ps-2 w-72 cursor-pointer'
