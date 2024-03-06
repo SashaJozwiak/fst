@@ -1,13 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import { getArrivals } from '@/app/services/dashboard/products/arrivals/getArrivals';
+import { AddArrival } from '@/app/components/dashboard/Products/Arrivals/AddArrival';
+import { DeleteArrivalButton } from '@/app/components/dashboard/Products/Arrivals/DeleteArrival';
 
 export default async function page() {
 
     const columns = ['status', 'art', 'date', 'sum', 'pay', 'supplier', 'employer'];
     const data: any = await getArrivals(columns);
 
-    //console.log(data);
+    //console.log(data)
+
     return (
         <>
             <h1 className='mb-5 text-slate-400 cursor-default text-lg'>
@@ -20,15 +23,10 @@ export default async function page() {
             </h1>
 
             <div className='flex justify-between'>
-                <button className='p-4 bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                </button>
-
-                <button className='p-2  bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
+                <AddArrival />
+                <Link href={'/dashboard/products/arrivals/suppliers'} className='p-2  bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
                     Поставщики
-                </button>
+                </Link>
 
             </div>
 
@@ -83,6 +81,13 @@ export default async function page() {
                                 className="cursor-pointer inline"
                                 >Сотрудник</h2>
                         </th>
+
+                            <th scope="col"
+                                className="px-4 py-2 text-center">
+                                <h2
+                                    className="cursor-pointer inline"
+                                >Уд.</h2>
+                            </th>
                     </tr>
                 </thead>
 
@@ -90,7 +95,7 @@ export default async function page() {
                         {data.map((item: any) => {
 
                             return (
-                                <tr key={item.art} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr key={item.art} className=" bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <th className="px-4 py-2 text-center text-black">
                                         {item.status}
                                     </th>
@@ -112,10 +117,15 @@ export default async function page() {
                                     <td className="px-4 py-2 text-center">
                                         {item.paid}
                                     </td>
+                                    <td className="px-4 py-2 text-center">
+                                        сотрудник
+                                    </td>
+                                    <td className="px-2 py-1 text-center">
+                                        <DeleteArrivalButton art={item.art} />
+                                    </td>
                                 </tr>
                             )
                         })}
-
                     </tbody>
             </table>
             </div>

@@ -38,7 +38,7 @@ export default async function page({ params }: { params: { id: string } }) {
     async function setData(FormData: FormData) {
         'use server'
 
-        console.log(FormData)
+        //console.log(FormData)
         const newData = {
             title: FormData.get('title'),
             category: FormData.get('category'),

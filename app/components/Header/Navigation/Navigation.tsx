@@ -14,7 +14,7 @@ export const Navigation = (props: NavigationProps) => {
     const pathname = usePathname();
     const [active, setActive] = useState(pathname);
 
-    console.log(pathname)
+    //console.log(pathname)
 
     return (
         <>

@@ -25,7 +25,7 @@ export async function getTable
         )
 
         const data = result.rows;
-        console.log(data)
+        //console.log(data)
         return data;
     } catch (err) {
         console.error('error fetching products:', err);

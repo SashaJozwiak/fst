@@ -29,7 +29,7 @@ export async function getProduct(productId: string) {
 export async function changeProduct(productId: string, newData: any) {
     const { title, category, izm, price, price_2, price_3, bonuses, vitrine } = newData;
     const client = await pool.connect();
-    console.log(vitrine)
+    //console.log(vitrine)
 
     try {
         const result = await client.query(
@@ -67,7 +67,7 @@ export async function imgName(productId: string) {
         )
 
         const data = result.rows[0]
-        console.log('query return', data)
+        //console.log('query return', data)
         return data;
 
     } catch (err) {
@@ -105,7 +105,7 @@ export async function changeDescription(productId: string, value: string) {
 
 export async function deleteProduct(art: string) {
     const pArt = Number(art);
-    console.log(art, pArt)
+    //console.log(art, pArt)
 
     const client = await pool.connect();
 

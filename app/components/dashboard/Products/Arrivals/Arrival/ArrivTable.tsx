@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 
-export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setDataList, isUpdate, setIsUpdate }: any) => {
+export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setDataList, isUpdate, setIsUpdate, status }: any) => {
     //const [dataList, setDataList] = React.useState(data);
 
     function changeDataList(id: any, property: string, value: number) {
-        console.log(id, property, value)
+        //console.log(id, property, value)
 
         if (property === 'amount') {
 
@@ -140,7 +140,10 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
                                 className='w-20 border text-center'
                                 type='number'
                                 step="0.10"
-                                value={item.amount || 0} />
+                                value={item.amount || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false}
+                            />
+
                         </td>
 
                         <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
@@ -150,7 +153,8 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
                                 className='w-20 border text-center'
                                 type='number'
                                 step="0.10"
-                                value={item.cost_price_sum || 0} />
+                                value={item.cost_price_sum || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false} />
                         </td>
 
                         <td className="relative px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
@@ -159,7 +163,8 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
                                 className='w-20 border text-center z-30'
                                 type='number'
                                 step="0.10"
-                                value={item.cost_price || 0} />
+                                value={item.cost_price || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false} />
                             <p className={`absolute bg-white ml-[25%] text-xs px-2 opacity-65 z-20 top-[-8.5px] cursor-default 
                             ${calcProcentArrPrice(item.product_art, item.cost_price) > 0 ? `text-red-300`
                                     : calcProcentArrPrice(item.product_art, item.cost_price) < 0 ? `text-green-500` : `text-slate-400`
@@ -174,7 +179,8 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
                                 id='price'
                                 type='number'
                                 step="0.10"
-                                value={item.price || 0} />
+                                value={item.price || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false} />
                             <p className={`absolute bg-white text-xs px-2 ml-[25%] opacity-65 z-20 top-[-8.5px] cursor-default 
                             ${marzha(item.cost_price, item.price) < 0 ? `text-red-300`
                                     : marzha(item.cost_price, item.price) > 0 ? `text-green-500` : `text-slate-400`
@@ -186,7 +192,8 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
 
                             <input onChange={(e) => changeDataList(item.product_art, 'price_2', Number(e.target.value))}
                                 className='w-20 border text-center' type='number' step="0.10"
-                                value={item.price_2 || 0} />
+                                value={item.price_2 || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false} />
                             <p className={`absolute bg-white text-xs px-2 ml-[20%] opacity-65 z-20 top-[-8.5px] cursor-default 
                             ${marzha(item.cost_price, item.price_2) < 0 ? `text-red-300`
                                     : marzha(item.cost_price, item.price_2) > 0 ? `text-green-500` : `text-slate-400`
@@ -198,7 +205,8 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
 
                             <input onChange={(e) => changeDataList(item.product_art, 'price_3', Number(e.target.value))}
                                 className=' w-20 border text-center' type='number' step="0.10"
-                                value={item.price_3 || 0} />
+                                value={item.price_3 || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false} />
                             <p className={`absolute bg-white text-xs px-2 ml-[20%] opacity-65 z-20 top-[-8.5px] cursor-default 
                             ${marzha(item.cost_price, item.price_3) < 0 ? `text-red-300`
                                     : marzha(item.cost_price, item.price_3) > 0 ? `text-green-500` : `text-slate-400`
@@ -210,7 +218,8 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
 
                             <input onChange={(e) => changeDataList(item.product_art, 'bonuses', Number(e.target.value))}
                                 className='w-20 border text-center' type='number' step="0.10"
-                                value={item.bonuses || 0} />
+                                value={item.bonuses || 0}
+                                disabled={status === 'Проведено' || status === 'Открыто' ? true : false} />
                             <p className={`absolute bg-white text-xs px-2 ml-[20%] opacity-65 z-20 top-[-8.5px] cursor-default 
                             ${finMarzha(item.price_3, item.bonuses, item.cost_price) < 0 ? `text-red-300`
                                     : finMarzha(item.price_3, item.bonuses, item.cost_price) > 0 ? `text-green-500` : `text-slate-400`
@@ -222,9 +231,9 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
                             <button
                                 onClick={async () => {
                                     await deleteProductFromList(item.product_art, art)
-                                    setIsUpdate(true);
+                                    await setIsUpdate(true);
                                 }}
-                                className=' border text-red-300 hover:bg-slate-200 rounded-xl'>
+                                className='border text-red-300 hover:bg-slate-200 rounded-xl'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
                                 </svg>

@@ -91,7 +91,7 @@ export async function getSearchList(query: string | undefined) {
 
 
 export async function addProductToArrival(pArt: string, aArt: string) {
-    'use server'
+
     const product_art = Number(pArt);
     const arrivals_art = Number(aArt);
 
@@ -107,11 +107,14 @@ export async function addProductToArrival(pArt: string, aArt: string) {
 
         revalidatePath(`/dashboard/products/arrivals/${aArt}`)
 
+
     } catch (err) {
         console.log(err)
         return err;
     } finally {
         client.release();
+        //revalidatePath(`/dashboard/products/arrivals/${aArt}`)
+
     }
 };
 
@@ -184,3 +187,48 @@ export async function addNewProduct(newProduct: string, aArt: string) {
         client.release();
     }
 }
+
+export async function addArrival() {
+    'use server'
+
+    const client = await pool.connect();
+    try {
+        console.log('database connection for addProductToArrival')
+        await client.query(
+            `
+            INSERT INTO arrivals (date, supplier_id, status)
+            VALUES (NOW(), 1, 'Черновик');
+            `
+        )
+
+        revalidatePath(`/dashboard/products/arrivals`)
+
+    } catch (err) {
+        console.log(err)
+        return err;
+    } finally {
+        client.release();
+    }
+};
+
+export async function deleteArrival(art: number) {
+    'use server'
+
+    const client = await pool.connect();
+    try {
+        console.log('database connection for addProductToArrival')
+        await client.query(
+            `
+            DELETE FROM arrivals WHERE art = ${art};
+            `
+        )
+
+        revalidatePath(`/dashboard/products/arrivals`)
+
+    } catch (err) {
+        console.log(err)
+        return err;
+    } finally {
+        client.release();
+    }
+};

@@ -6,13 +6,17 @@ import { useRouter } from 'next/navigation';
 
 export default function page({ params }: { params: { id: string } }) {
     const art = params.id;
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [err, setErr] = React.useState<string>('');
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { push } = useRouter();
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useEffect(() => {
         if (err === 'DELETE') {
             push('/dashboard/products/');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [err])
 
     return (

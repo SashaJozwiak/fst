@@ -6,7 +6,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { addNewProduct, addProductToArrival, deleteProductFromList } from '@/app/services/dashboard/products/arrivals/getArrivals';
 import { ArrivTable } from './ArrivTable';
-import { saveData, getPaid, saveStatus } from '@/app/services/dashboard/products/arrivals/getArrival';
+import { saveData, getPaid } from '@/app/services/dashboard/products/arrivals/getArrival';
 
 export const Arrival = ({ titles, data, dataSearch, art }: any) => {
 
@@ -28,7 +28,7 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
     const { replace } = useRouter();
 
     const handleSearch = useDebouncedCallback((term: string) => {
-        console.log(dataList);
+        //console.log(dataList);
         console.log(`Searching...${term}`);
         setNewProduct(term)
         setIsHave(false)
@@ -67,19 +67,25 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
     }
 
     useEffect(() => {
-        if (isUpdate) {
+        //if (isUpdate) {
             setDataList(data);
             setIsUpdate(false);
-        }
+        //}
+
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, /* dataSum, sumToPay */ /* isUpdate, sumToPay */])
+
+    useEffect(() => {
         sumToPay()
         if (opl < dataSum) {
             setIsCredit(true);
         } else {
             setIsCredit(false);
         }
+    }, [dataSum, opl, sumToPay]);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, dataSum, isUpdate, sumToPay])
 
     useEffect(() => {
         async function pay() {
@@ -87,8 +93,6 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
             setOpl(paid);
         }
         pay()
-
-
 
     }, [art])
 
@@ -102,7 +106,7 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
         getDefaultStatus();
     }, [searchParams]);
 
-    console.log(status)
+    //console.log(status)
 
     return (<>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -129,6 +133,7 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                     setDataList={setDataList}
                     isUpdate={isUpdate}
                     setIsUpdate={setIsUpdate}
+                    status={status}
                 />
 
             </table>
@@ -155,7 +160,7 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                 <button
                     onClick={async () => {
                         await addNewProduct(newProduct, art)
-                            setIsUpdate(true);
+                            await setIsUpdate(true);
                     }
                     }
                     className='py-[5px] px-4 border bg-slate-300 rounded-lg hover:text-white hover:bg-slate-400'>
@@ -206,7 +211,7 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                         } else {
                             setIsCredit(false);
                         }
-                        console.log(isCredit)
+                        //console.log(isCredit)
 
                     }}
                         type='number' step="0.10" value={opl}
@@ -226,7 +231,8 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
 
                         if (!found) {
                             await addProductToArrival(pArt, art)
-                            setIsUpdate(true);
+                            setIsUpdate(true)
+
                         } else {
                             setIsHave(true)
                         }
