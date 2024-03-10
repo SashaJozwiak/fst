@@ -30,21 +30,21 @@ export default async function page({
                     <Link href={'/dashboard/products/arrivals'} id="arrivals" data-dropdown-toggle="dropdownBgHover" className="text-slate-900 hover:text-white bg-lime-600 hover:bg-lime-700 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
                         Поставки
                     </Link>
-                    <button className='p-1 flex justify-center mt-2 border bg-lime-600 rounded-lg hover:text-white hover:bg-lime-700'>
+                    {/* <button className='p-1 flex justify-center mt-2 border bg-lime-600 rounded-lg hover:text-white hover:bg-lime-700'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-                    </button>
+                    </button> */}
                 </div>
                 <div className='flex flex-col'>
                     <button id="removeProduct" data-dropdown-toggle="dropdownBgHover" className=" text-slate-900 hover:text-white bg-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
                         Списания
                     </button>
-                    <button className='p-1 flex justify-center mt-2 border bg-red-700 hover:bg-red-800 hover:text-white rounded-lg '>
+                    {/* <button className='p-1 flex justify-center mt-2 border bg-red-700 hover:bg-red-800 hover:text-white rounded-lg '>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-                    </button>
+                    </button> */}
                 </div>
             </div>
 

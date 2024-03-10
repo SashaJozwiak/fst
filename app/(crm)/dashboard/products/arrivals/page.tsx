@@ -24,7 +24,7 @@ export default async function page() {
 
             <div className='flex justify-between'>
                 <AddArrival />
-                <Link href={'/dashboard/products/arrivals/suppliers'} className='p-2  bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
+                <Link href={'/dashboard/products/arrivals/suppliers'} className='p-2 bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2 my-auto'>
                     Поставщики
                 </Link>
 

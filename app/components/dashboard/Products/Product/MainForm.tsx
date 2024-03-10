@@ -1,10 +1,41 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
+
+//import { finMarzha } from '@/app/services/dashboard/products/arrivals/finMnMarzha';
 
 export const MainForm = ({ art, data, setData }: any) => {
     const [isEdit, setIsEdit] = React.useState<boolean>(false);
     const [checked, setChecked] = React.useState<boolean>(data.vitrine);
 
+    /* const [minNaz, setMinNaz] = React.useState<number>(0);
+
+    useEffect(() => {
+        finMarzha(data.price_3, data.bonuses, data.cost_price)
+            .then((res: any) => setMinNaz(res));
+    }, [data])
+ */
+    const finMarzha = (lastPrice: any, bonuses: any, costPrice: any) => {
+        const arrB: any = [];
+
+        function sumBonuses(bon: any) {
+            if (bon < 1) {
+                return;
+            }
+            arrB.push(bon)
+            sumBonuses(bon / 2)
+        }
+
+        sumBonuses(bonuses)
+        const res = arrB.reduce((partialSum: any, a: any) => partialSum + a, 0)
+        const finRes = (lastPrice - costPrice - res) / costPrice * 100
+
+        if (costPrice > 0) {
+            return +finRes.toFixed(2);
+        }
+        return 0;
+    }
+
+    console.log(data)
     return (
         <>
             <form action={async function (e) {
@@ -75,7 +106,7 @@ export const MainForm = ({ art, data, setData }: any) => {
                             id="cost_price_one"
                             name="cost_price_one"
                             disabled={true}
-                            defaultValue={150.00}
+                            defaultValue={data.cost_price}
                         />
                     </label>
 
@@ -87,7 +118,7 @@ export const MainForm = ({ art, data, setData }: any) => {
                             id="cost_price_sum"
                             name="cost_price_sum"
                             disabled={true}
-                            defaultValue={1500}
+                            defaultValue={data.amount * data.cost_price}
                         />
                     </label>
 
@@ -99,7 +130,7 @@ export const MainForm = ({ art, data, setData }: any) => {
                             id="cost_price_procent"
                             name="cost_price_procent"
                             disabled={true}
-                            defaultValue={30}
+                            value={finMarzha(data.price_3, data.bonuses, data.cost_price)}
                         />
                     </label>
 
@@ -111,7 +142,7 @@ export const MainForm = ({ art, data, setData }: any) => {
                             id="cost_price_procent_max"
                             name="cost_price_procent_max"
                             disabled={true}
-                            defaultValue={100}
+                            defaultValue={((data.price - data.cost_price) / data.cost_price * 100).toFixed(2)}
                         />
                     </label>
 
@@ -123,7 +154,7 @@ export const MainForm = ({ art, data, setData }: any) => {
                             id="min_profit"
                             name="min_profit"
                             disabled={true}
-                            defaultValue={100}
+                            defaultValue={(data.cost_price / 100 * finMarzha(data.price_3, data.bonuses, data.cost_price)).toFixed(2)}
                         />
                     </label>
                 </div>

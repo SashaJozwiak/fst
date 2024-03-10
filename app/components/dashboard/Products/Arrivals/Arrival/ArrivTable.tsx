@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 
+//import { finMarzha } from '@/app/services/dashboard/products/arrivals/finMnMarzha'
+
 export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setDataList, isUpdate, setIsUpdate, status }: any) => {
     //const [dataList, setDataList] = React.useState(data);
 
