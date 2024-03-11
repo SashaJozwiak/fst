@@ -211,8 +211,6 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
                         } else {
                             setIsCredit(false);
                         }
-                        //console.log(isCredit)
-
                     }}
                         type='number' step="0.10" value={opl}
                         className='w-20 border'>

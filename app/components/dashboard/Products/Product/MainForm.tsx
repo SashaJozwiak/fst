@@ -1,19 +1,15 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 //import { finMarzha } from '@/app/services/dashboard/products/arrivals/finMnMarzha';
 
-export const MainForm = ({ art, data, setData }: any) => {
+export const MainForm = ({ art, data, setData, categories }: any) => {
+
+    const [newCat, setNewCat] = React.useState('');
+
     const [isEdit, setIsEdit] = React.useState<boolean>(false);
     const [checked, setChecked] = React.useState<boolean>(data.vitrine);
 
-    /* const [minNaz, setMinNaz] = React.useState<number>(0);
-
-    useEffect(() => {
-        finMarzha(data.price_3, data.bonuses, data.cost_price)
-            .then((res: any) => setMinNaz(res));
-    }, [data])
- */
     const finMarzha = (lastPrice: any, bonuses: any, costPrice: any) => {
         const arrB: any = [];
 
@@ -35,12 +31,11 @@ export const MainForm = ({ art, data, setData }: any) => {
         return 0;
     }
 
-    console.log(data)
     return (
         <>
             <form action={async function (e) {
                 await setData(e);
-                await setIsEdit(false);
+                setIsEdit(false);
             }}>
                 <div className='flex flex-wrap gap-2'>
                     <label htmlFor="art" className='opacity-65 mb-2 block text-base font-medium text-slate-700'>
@@ -74,15 +69,31 @@ export const MainForm = ({ art, data, setData }: any) => {
                         Категория
                         <select
                             onChange={() => setIsEdit(true)}
-                            className='block w-64 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 '
+                            className='block w-64 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-slate-500 focus:border-slate-500 '
                             name="category"
                             id='category'
                             defaultValue={data.category}
                         >
-                            <option value="цветы">Цветы</option>
-                            <option value="букеты">Букеты</option>
+                            {categories.map((cat: any) => <option key={cat.id} value={cat.category}>{cat.category}</option>)}
                         </select>
                     </label>
+
+                    <input
+                        onChange={(e) => setNewCat(e.target.value)}
+                        name='newCat'
+                        value={newCat}
+                        className='py-[5px] px-4 border mt-6 h-9'
+                        type='search' />
+
+
+                    <button
+                        type='submit'
+                        className='py-[5px] px-4 border mt-6 h-9 bg-slate-300 rounded-lg hover:text-white hover:bg-slate-400'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </button>
+
                 </div>
 
                 <div className='flex flex-wrap gap-2'>

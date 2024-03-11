@@ -11,10 +11,13 @@ import { ImgUpload } from '../../../../../components/dashboard/Products/Product/
 import { Description } from '@/app/components/dashboard/Products/Product/Description';
 
 import { changeProduct, getProduct, imgName, changeDescription } from '@/app/services/dashboard/products/product/getProduct';
+import { addCategory, getCategories } from '@/app/services/dashboard/products/product/categories';
 
 export default async function page({ params }: { params: { id: string } }) {
     const art = params.id;
     const data: any = await getProduct(art);
+    const categories: any = await getCategories();
+    //console.log(categories)
 
     async function upload(FormData: FormData) {
         'use server'
@@ -51,6 +54,12 @@ export default async function page({ params }: { params: { id: string } }) {
         }
 
         await changeProduct(art, newData);
+
+        const newCat = FormData.get('newCat');
+        console.log(newCat)
+        if (newCat) {
+            await addCategory(newCat);
+        }
         //redirect(`/product/${art}/edit`)
         revalidatePath(`/product/${art}/edit`);
 
@@ -83,7 +92,7 @@ export default async function page({ params }: { params: { id: string } }) {
                 </Link>
             </header>
 
-            <MainForm art={art} data={data} setData={setData} />
+            <MainForm art={art} data={data} setData={setData} categories={categories} />
             <ImgUpload imgLink={data.img_link} uploadFn={upload} />
             <Description description={data.content} setDescription={setDescription} />
         </>

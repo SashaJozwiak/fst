@@ -145,7 +145,6 @@ export const ArrivTable = ({ art, data, deleteProductFromList, dataList, setData
                                 value={item.amount || 0}
                                 disabled={status === 'Проведено' || status === 'Открыто' ? true : false}
                             />
-
                         </td>
 
                         <td className="px-0 py-1 text-sm font-bold text-center text-slate-500 hover:text-slate-800 border-dotted border-slate-500 border-b-1">
