@@ -212,14 +212,17 @@ export async function addArrival() {
 };
 
 export async function deleteArrival(art: number) {
-    'use server'
+    /*     'use server' */
 
     const client = await pool.connect();
     try {
         console.log('database connection for addProductToArrival')
         await client.query(
             `
+            BEGIN;
+            DELETE FROM arrivals_products WHERE arrivals_art = ${art};
             DELETE FROM arrivals WHERE art = ${art};
+            COMMIT;
             `
         )
 

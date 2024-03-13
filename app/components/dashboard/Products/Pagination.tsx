@@ -11,12 +11,7 @@ export default function Pagination({ totalItems }: { totalItems: number }) {
     const searchParams = useSearchParams();
     const currentPage = Number(searchParams.get('page')) || 1;
 
-    //console.log(currentPage, totalItems);
     const allPages = generatePagination(currentPage, Math.ceil(totalItems / 10));
-
-    //console.log(currentPage)
-    //console.log(totalItems)
-    //console.log(allPages)
 
     const createPageURL = (pageNumber: number | string) => {
         const params = new URLSearchParams(searchParams);
@@ -24,7 +19,6 @@ export default function Pagination({ totalItems }: { totalItems: number }) {
         return `${pathname}?${params.toString()}`;
 
     };
-
 
     return (
         <nav className="flex items-center flex-column flex-wrap md:flex-row justify-end pt-4" aria-label="Table navigation">

@@ -1,8 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { getArrivals } from '@/app/services/dashboard/products/arrivals/getArrivals';
-import { AddArrival } from '@/app/components/dashboard/Products/Arrivals/AddArrival';
+
+
 import { DeleteArrivalButton } from '@/app/components/dashboard/Products/Arrivals/DeleteArrival';
+
+import { getArrivals, deleteArrival } from '@/app/services/dashboard/products/arrivals/getArrivals';
+import { AddArrival } from '@/app/components/dashboard/Products/Arrivals/AddArrival';
+
+
 
 export default async function page() {
 
@@ -121,7 +126,7 @@ export default async function page() {
                                         сотрудник
                                     </td>
                                     <td className="px-2 py-1 text-center">
-                                        <DeleteArrivalButton art={item.art} />
+                                        <DeleteArrivalButton art={item.art} deleteArrival={deleteArrival} />
                                     </td>
                                 </tr>
                             )

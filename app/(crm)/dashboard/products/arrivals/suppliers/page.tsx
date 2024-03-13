@@ -1,9 +1,7 @@
 import Link from "next/link";
+import { DeleteSuppliersButton } from "@/app/components/dashboard/Products/Suppliers/DeleteSupplierButton";
 
-
-import { DeleteArrivalButton } from "@/app/components/dashboard/Products/Arrivals/DeleteArrival";
-
-import { getSuppliers } from "@/app/services/dashboard/suppliers/suppTable"
+import { getSuppliers, deleteSupplier } from "@/app/services/dashboard/suppliers/suppTable"
 
 export default async function page() {
 
@@ -60,7 +58,7 @@ export default async function page() {
                                 className="px-4 py-2 text-center">
                                 <h2
                                     className="cursor-pointer inline"
-                                >Уд.</h2>
+                                >Ред./Уд.</h2>
                             </th>
                         </tr>
                     </thead>
@@ -86,7 +84,7 @@ export default async function page() {
                                         {item.comment}
                                     </td>
                                     <td className="px-2 py-1 text-center">
-                                        <DeleteArrivalButton art={item.art} />
+                                        <DeleteSuppliersButton id={item.id} deleteSupplier={deleteSupplier} />
                                     </td>
                                 </tr>
                             )
