@@ -26,6 +26,25 @@ export async function getSuppliers() {
 
 }
 
+export async function addSupplier(data: any) {
+    const client = await pool.connect();
+    const { name, tel, email, comment } = data;
+
+    console.log(data)
+
+    try {
+        await client.query(`INSERT INTO suppliers (name, phone_number, email, comment) 
+        VALUES ($1, $2, $3, $4)`, [name, tel, email, comment]);
+        revalidatePath(`http://localhost:3001/dashboard/products/arrivals/suppliers`);
+    } catch (err) {
+        console.log(err)
+        return err;
+
+    } finally {
+        client.release()
+    }
+}
+
 export async function deleteSupplier(art: number) {
     const client = await pool.connect();
     noStore();

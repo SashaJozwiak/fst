@@ -3,9 +3,27 @@ import { DeleteSuppliersButton } from "@/app/components/dashboard/Products/Suppl
 
 import { getSuppliers, deleteSupplier } from "@/app/services/dashboard/suppliers/suppTable"
 
+import { AddSupplierForm } from "@/app/components/dashboard/Products/Suppliers/AddSupplierForm";
+import { addSupplier } from "@/app/services/dashboard/suppliers/suppTable";
+
 export default async function page() {
 
     const suppliers: any = await getSuppliers();
+
+    async function addSupplierFn(FormData: FormData) {
+        'use server'
+
+        const newSupplier = {
+            name: FormData.get('name'),
+            tel: FormData.get('tel'),
+            email: FormData.get('email'),
+            comment: FormData.get('comment')
+        }
+
+        await addSupplier(newSupplier);
+
+        console.log(newSupplier)
+    }
 
     return (
         <>
@@ -91,11 +109,11 @@ export default async function page() {
                         })}
                     </tbody>
 
-
-
                 </table>
+
             </div >
 
+            <AddSupplierForm addSupplierFn={addSupplierFn} />
 
         </>
     )
