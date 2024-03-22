@@ -1,35 +1,5 @@
 import Link from "next/link"
 
-
-/* const arrText = [{
-    title: "Это первое предложение, нейтральное. ",
-    rank: 0
-
-}, {
-    title: "А это второе предложение, более длинное и интересное, честное. ",
-    rank: 3
-},
-{
-    title: "Ну и наконец третье предложение, лживое и отвратительное. ",
-    rank: -3
-}, {
-
-    title: "Нет, дальше опять нейтральная информация. ",
-    rank: 0
-
-
-}, {
-    title: "Эта информация повторяется в другом виде, но тоже такая же. ",
-    rank: 0
-}
-]
-
-const dict = {
-    "0": 950,
-    "3": 950,
-    "-3": 200
-} */
-
 export default async function page() {
     return <>
         <h1 className='mb-5 text-slate-400 cursor-default text-lg'>
@@ -99,16 +69,5 @@ export default async function page() {
                 </thead>
             </table>
         </div>
-
-        {/* <div className="mt-100">
-            {arrText.map((item, index) => {
-                return (
-                    <p className={`font-medium inline cursor-default hover:bg-slate-50 text-slate-${dict[(item.rank)]} 
-                    text-2xl `}
-                        key={index}>{item.title}</p>
-                )
-            })}
-        </div> */}
-
     </>
 }
