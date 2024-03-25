@@ -10,7 +10,7 @@ export default async function page() {
                 Товары
             </Link> / Списания
         </h1>
-
+        {/* {rework this} */}
         <div className='flex justify-start'>
             <button
                 className='p-4 bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2'>
