@@ -1,20 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 
-
 import { DeleteArrivalButton } from '@/app/components/dashboard/Products/Arrivals/DeleteArrival';
 
 import { getArrivals, deleteArrival } from '@/app/services/dashboard/products/arrivals/getArrivals';
 import { AddArrival } from '@/app/components/dashboard/Products/Arrivals/AddArrival';
 
-
-
 export default async function page() {
-
     const columns = ['status', 'art', 'date', 'sum', 'pay', 'supplier', 'employer'];
     const data: any = await getArrivals(columns);
-
-    //console.log(data)
 
     return (
         <>
@@ -32,7 +26,6 @@ export default async function page() {
                 <Link href={'/dashboard/products/arrivals/suppliers'} className='p-2 bg-slate-200 hover:bg-slate-400 hover:text-white rounded-lg mb-2 my-auto'>
                     Поставщики
                 </Link>
-
             </div>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -51,21 +44,18 @@ export default async function page() {
                                     className="cursor-pointer inline"
                                 >№</h2>
                             </th>
-
                             <th scope="col"
                                 className="px-4 py-2 text-center">
                                 <h2
                                     className="cursor-pointer inline"
                                 >Дата</h2>
                             </th>
-
                             <th scope="col"
                                 className="px-4 py-2 text-center">
                                 <h2
                                     className="cursor-pointer inline"
                                 >Поставщик</h2>
                             </th>
-
                             <th scope="col"
                                 className="px-4 py-2 text-center">
                                 <h2
@@ -78,15 +68,13 @@ export default async function page() {
                             <h2
                                 className="cursor-pointer inline"
                                 >Оплата</h2>
-                        </th>
-
+                            </th>
                         <th scope="col"
                             className="px-4 py-2 text-center">
                             <h2
                                 className="cursor-pointer inline"
                                 >Сотрудник</h2>
-                        </th>
-
+                            </th>
                             <th scope="col"
                                 className="px-4 py-2 text-center">
                                 <h2
