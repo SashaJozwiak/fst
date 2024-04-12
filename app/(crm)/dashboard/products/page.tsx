@@ -29,7 +29,7 @@ export default async function page({
 
 
                 <div className='flex flex-col justify-center'>
-                    <Link href={'/dashboard/products/arrivals'} id="arrivals" className="text-slate-900 hover:text-white bg-lime-600 hover:bg-lime-700 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
+                    <Link href={'/dashboard/products/arrivals'} id="arrivals" className="text-slate-900 hover:text-white bg-slate-400 hover:bg-slate-600 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
                         Поставки
                     </Link>
                     {/* <button className='p-1 flex justify-center mt-2 border bg-lime-600 rounded-lg hover:text-white hover:bg-lime-700'>
@@ -39,7 +39,7 @@ export default async function page({
                     </button> */}
                 </div>
                 <div className='flex flex-col'>
-                    <Link href={'/dashboard/products/audit'} id="removeProduct" className=" text-slate-900 hover:text-white bg-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
+                    <Link href={'/dashboard/products/audit'} id="removeProduct" className=" text-slate-900 hover:text-white bg-slate-400 hover:bg-slate-600 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-lg px-2 py-2 inline-flex items-center" type="button">
                         Списания
                     </Link>
                     {/* <button className='p-1 flex justify-center mt-2 border bg-red-700 hover:bg-red-800 hover:text-white rounded-lg '>

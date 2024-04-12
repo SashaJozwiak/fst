@@ -7,8 +7,9 @@ export async function saveData(art_arrival: string, data: any[], sum: any, opl: 
     const client = await pool.connect();
 
     try {
+        await client.query('BEGIN');
         data.forEach(async element => {
-            await client.query('BEGIN');
+            //await client.query('BEGIN');
             await client.query(`
                 UPDATE arrivals_products
                 SET amount = ${element.amount}, cost_price= ${element.cost_price},
@@ -18,6 +19,7 @@ export async function saveData(art_arrival: string, data: any[], sum: any, opl: 
                 UPDATE products
                 SET price = ${element.price}, price_2 = ${element.price_2}, price_3 = ${element.price_3},
                 bonuses = ${element.bonuses}, cost_price= ${element.cost_price}
+                ${status === 'Проведено' ? `, amount = amount + ${element.amount}` : ''}
                 WHERE art = ${element.product_art};                
            `)
         });
@@ -31,6 +33,8 @@ export async function saveData(art_arrival: string, data: any[], sum: any, opl: 
             SET status = '${status}' 
             WHERE art = ${art_arrival};
         `)
+
+
 
         await client.query('COMMIT;');
 

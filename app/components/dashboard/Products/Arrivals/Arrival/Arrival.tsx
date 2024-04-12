@@ -15,6 +15,8 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
     const [isUpdate, setIsUpdate] = React.useState(false); //можно вытянуть data из db
     const [isCredit, setIsCredit] = React.useState(false); // задолжность
 
+    const [isBlickSave, setIsBlickSave] = React.useState(false);
+
     const [dataList, setDataList] = React.useState(data);
     const [status, setStatus] = React.useState('');
 
@@ -67,12 +69,17 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
     }
 
     useEffect(() => {
+        if (status === 'Проведено') {
+            setIsBlickSave(true)
+        }
+    }, [status])
+
+    useEffect(() => {
         //if (isUpdate) {
             setDataList(data);
             setIsUpdate(false);
+
         //}
-
-
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, /* dataSum, sumToPay */ /* isUpdate, sumToPay */])
@@ -174,21 +181,28 @@ export const Arrival = ({ titles, data, dataSearch, art }: any) => {
 
             <div className='flex items-center gap-2 m-auto'>
                 <button onClick={async () => {
+                    if (status === 'Проведено') {
+                        setIsBlickSave(true);
+                    }
                     await saveData(art, dataList, dataSum, opl, status)
                 }}
                     className='font-semibold 
-                m-auto border rounded-lg px-2 py-1 bg-slate-300 hover:bg-slate-500 hover:text-slate-200 text-slate-700
-                '>
+                m-auto disabled:opacity-75 border rounded-lg px-2 py-1
+                bg-slate-300 enabled:hover:bg-slate-500 enabled:hover:text-slate-200 text-slate-700
+                '
+                    disabled={isBlickSave}>
                     Сохранить
                 </button>
 
-                <select onChange={async (e) => {
+                <select
+                    disabled={isBlickSave}
+                    onChange={async (e) => {
                     const newStatus = e.target.value;
-                    setStatus(newStatus);
-
+                        setStatus(newStatus);
                 }}
                     value={status}
                     className='p-0 m-0 border'>
+
                     <option value="Черновик">Черновик</option>
                     <option value="Открыто">Открыто</option>
                     {!isCredit && <option value="Проведено">Проведено</option>}
