@@ -1,16 +1,5 @@
-...soon
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## crm+shop with math infinity ref system 
+(Nextjs, postgreSQL)
+![bandicam 2024-04-13 05-54-03-500](https://github.com/SashaJozwiak/fst/assets/61920568/803baf54-f28d-4cb9-9626-dcf81d28c8f6)
 
